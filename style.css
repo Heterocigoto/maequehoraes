@@ -1,7 +1,7 @@
 :root{
     --letras: black;
     --fondo: coral;
-    --cabeceras: cadetblue;
+    --cabeceras: rgb(95, 158, 160);
     --pestanas: rgb(121, 185, 187);
 }
 *{

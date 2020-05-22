@@ -57,10 +57,8 @@ e.respondWith(
         //Sino tiene que ir a traer datosgit
         return fetch(e.request)
     })
-)
-
-
-    })
+    )
+})
 
 
 
