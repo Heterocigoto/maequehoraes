@@ -1,0 +1,41 @@
+{
+    "name": "Cuánto falta?",
+    "short_name": "Cuánto falta?", 
+    "description": "Mae, aquí puede saber la hora" ,
+    "background_color": "#2B2B2B",
+    "theme_color": "coral",
+    "orientation": "portrait",
+    "display": "standalone",
+    "start_url": "./?utm_source=web_app_manifest",
+    "scope": "/",
+    "lang": "es-CR",
+    "icons": [
+     
+      {
+        "src": "Imagenes/Icon512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "Imagenes/Icon256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      },
+       {
+        "src": "Imagenes/Icon128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },
+      {
+        "src": "Imagenes/Icon64.png",
+        "sizes": "64x64",
+        "type": "image/png"
+      },
+      {
+        "src": "Imagenes/Icon32.png",
+        "sizes": "32x32",
+        "type": "image/png"
+      }
+    
+    ]
+  }
