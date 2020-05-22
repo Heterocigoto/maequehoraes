@@ -3,7 +3,7 @@
     "short_name": "Cuánto falta?", 
     "description": "Mae, aquí puede saber la hora" ,
     "background_color": "#2B2B2B",
-    "theme_color": "coral",
+    "theme_color": "rgb(95, 158, 160)",
     "orientation": "portrait",
     "display": "standalone",
     "start_url": "./?utm_source=web_app_manifest",
