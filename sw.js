@@ -20,30 +20,34 @@ linksParaCache=[
             .then(()=> self.skipWaiting())
             
         })
-        .catch(error => console.log("Algo salió mal", error)) // Falla de conexión por ejemplo
+        .catch(error => console.log("Algo salió mal con el cache", error)) // Falla de conexión por ejemplo
     )
   })
-
+ 
 
   // Cuando se va la conexión este evento busca dentro
  // de sí misma los recursos sin necesidad de internet
-  self.addEventListener('active', e=>{
-    const controlDeVersion = [NombreDel_Cache] // detecta si hay una versión nueva o un cambio
+//una vez que se instala el SW, se activa y busca los recursos para hacer que funcione sin conexión
+self.addEventListener('activate', e => {
+    const cacheWhitelist = [NombreDel_Cache]
+  
     e.waitUntil(
-    caches.keys()
-    .then(cacheNames =>{
-        cacheNames.map(cacheName =>{
-            // Elimina lo que ya no está en el cache
-            if(controlDeVersion.indexOf(cacheName)=== -1){
-            return caches.delete(cacheName)
-            }
+      caches.keys()
+        .then(cacheNames => {
+          return Promise.all(
+            cacheNames.map(cacheName => {
+              //Eliminamos lo que ya no se necesita en cache
+              if (cacheWhitelist.indexOf(cacheName) === -1) {
+                return caches.delete(cacheName)
+              }
+            })
+          )
         })
-    })
-
-    .then(()=> self.clients.claim())
+        // Le indica al SW activar el cache actual
+        .then(() => self.clients.claim())
     )
+  })
 
-})
 // Recupera o actualiza desde el link, es decir para el cambio de version
     self.addEventListener('fetch', e=>{
 
