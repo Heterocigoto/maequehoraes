@@ -4,7 +4,8 @@ linksParaCache=[
     'style.css',
     'javascript.js',
     'Imagenes/Icon512.png',
-    'Imagenes/Icon64.png'
+    'Imagenes/Icon64.png',
+    'manifest.json'
  ] // Implementamos un cache para que se guarden los
   // datos más importantes o que necesitamos carguen rápido
  
