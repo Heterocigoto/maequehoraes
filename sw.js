@@ -56,6 +56,7 @@ self.addEventListener('install', e => {
           //recuperar de la petición a la url
           return fetch(e.request)
         })
-        .catch(err => console.log("Algo fallo en el activate", err))
+        
     )
+    .catch(err => console.log("Algo fallo en el fetch", err))
   })
