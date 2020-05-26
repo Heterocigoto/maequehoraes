@@ -1,5 +1,5 @@
 const NombreDel_Cache = 'Que_Hora_Es_Version_1',
-linksParaCache=['/',
+linksParaCache=[
     'index.html',
     'style.css',
     'javascript.js',
@@ -36,11 +36,9 @@ self.addEventListener('install', e => {
               }
             })
           )
-        }).catch(err => console.log("Algo fallo en el activate1", err))
-        // Le indica al SW activar el cache actual
+        })// Le indica al SW activar el cache actual
         .then(() => self.clients.claim())
-        .catch(err => console.log("Algo fallo en el activate2", err))
-    )
+           )
     
   })
   
@@ -56,7 +54,7 @@ self.addEventListener('install', e => {
           }
           //recuperar de la petición a la url
           return fetch(e.request)
-        }).catch(err => console.log("Algo fallo en el fetch", err))
+        })
         
     )
     
