@@ -1,5 +1,5 @@
-const NombreDel_Cache = 'Que_Hora_Es_Version_1',
- var linksParaCache=[
+const cacheName = 'Que_Hora_Es_Version_1';
+ let appShellFiles=[
     'index.html',
     'style.css',
     'javascript.js',
@@ -7,44 +7,29 @@ const NombreDel_Cache = 'Que_Hora_Es_Version_1',
     'Imagenes/Icon64.png', 
     'sw.js', 
     'manifest.json'
- ] // Implementamos un cache para que se guarden los
-  // datos más importantes o que necesitamos carguen rápido
- 
-//durante la fase de instalación, generalmente se almacena en caché los activos estáticos
-self.addEventListener('install', e => {
+ ];
+ var contentToCache = appShellFiles;
+ self.addEventListener('install', (e) => {
+    console.log('[Service Worker] Install');
     e.waitUntil(
-      caches.open(NombreDel_Cache)
-        .then(cache => {
-          return cache.addAll(linksParaCache)
-            .then(() => self.skipWaiting())
-        })
-        .catch(err => console.log('Falló registro de cache', err))
-    )
-  })
-  
-  //una vez que se instala el SW, se activa y busca los recursos para hacer que funcione sin conexión
-  self.addEventListener('activate', e => {
-    const cacheWhitelist = [NombreDel_Cache]
-  
-    e.waitUntil(
-      caches.keys()
-        .then(cacheNames => {
-          return Promise.all(
-            cacheNames.map(cacheName => {
-              //Eliminamos lo que ya no se necesita en cache
-              if (cacheWhitelist.indexOf(cacheName) === -1) {
-                return caches.delete(cacheName)
-              }
-            })
-          )
-        })// Le indica al SW activar el cache actual
-        .then(() => self.clients.claim())
-           )
-    
-  })
-  
-  self.addEventListener('fetch', function(e){
-	e.respondWith(
-		caches.match(e.request).then(function(response){
-            return response || fetch(e.request);}
-            ))})
+      caches.open(cacheName).then((cache) => {
+            console.log('[Service Worker] Caching all: app shell and content');
+        return cache.addAll(contentToCache);
+      })
+    );
+  });
+
+  self.addEventListener('fetch', (e) => {
+    e.respondWith(
+      caches.match(e.request).then((r) => {
+            console.log('[Service Worker] Fetching resource: '+e.request.url);
+        return r || fetch(e.request).then((response) => {
+                  return caches.open(cacheName).then((cache) => {
+            console.log('[Service Worker] Caching new resource: '+e.request.url);
+            cache.put(e.request, response.clone());
+            return response;
+          });
+        });
+      })
+    );
+  });
