@@ -1,5 +1,5 @@
 const NombreDel_Cache = 'Que_Hora_Es_Version_1',
-const linksParaCache=[
+ linksParaCache=[
     'index.html',
     'style.css',
     'javascript.js',
