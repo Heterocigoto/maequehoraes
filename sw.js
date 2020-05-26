@@ -1,10 +1,10 @@
 const NombreDel_Cache = 'Que_Hora_Es_Version_1',
-linksParaCache=['./',
-    './style.css',
-    './javascript.js',
-    './Imagenes/Icon512.png',
-    './Imagenes/Icon64.png',
-    './Imagenes/'
+linksParaCache=['/',
+    '/style.css',
+    '/javascript.js',
+    '/Imagenes/Icon512.png',
+    '/Imagenes/Icon64.png',
+    '/Imagenes/'
  ] // Implementamos un cache para que se guarden los
   // datos más importantes o que necesitamos carguen rápido
  
