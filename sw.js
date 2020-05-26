@@ -8,27 +8,20 @@ linksParaCache=[
  ] // Implementamos un cache para que se guarden los
   // datos más importantes o que necesitamos carguen rápido
  
-
-
-  //Aqui se da la cache de la fase de instalación
-  self.addEventListener('install', e=>{
+//durante la fase de instalación, generalmente se almacena en caché los activos estáticos
+self.addEventListener('install', e => {
     e.waitUntil(
-        caches.open(NombreDel_Cache)
+      caches.open(NombreDel_Cache)
         .then(cache => {
-            return cache.addAll(linksParaCache) //Agregue al cache del Cel 
-                                                //lo que agregue a la lista del cache
-            .then(()=> self.skipWaiting())
-            
+          return cache.addAll(linksParaCache)
+            .then(() => self.skipWaiting())
         })
-        .catch(error => console.log("Algo salió mal con el cache", error)) // Falla de conexión por ejemplo
+        .catch(err => console.log('Falló registro de cache', err))
     )
   })
- 
-
-  // Cuando se va la conexión este evento busca dentro
- // de sí misma los recursos sin necesidad de internet
-//una vez que se instala el SW, se activa y busca los recursos para hacer que funcione sin conexión
-self.addEventListener('activate', e => {
+  
+  //una vez que se instala el SW, se activa y busca los recursos para hacer que funcione sin conexión
+  self.addEventListener('activate', e => {
     const cacheWhitelist = [NombreDel_Cache]
   
     e.waitUntil(
@@ -47,22 +40,19 @@ self.addEventListener('activate', e => {
         .then(() => self.clients.claim())
     )
   })
-
-// Recupera o actualiza desde el link, es decir para el cambio de version
-    self.addEventListener('fetch', e=>{
-
-e.respondWith(
-    caches.match(e.request)
-    .then(respuesta =>{
-        if(respuesta){
-            // Si se cumple es que no hay ningún cambio de version
-            return respuesta;
-        }
-        //Sino tiene que ir a traer datosgit
-        return fetch(e.request)
-    })
+  
+  //cuando el navegador recupera una url
+  self.addEventListener('fetch', e => {
+    //Responder ya sea con el objeto en caché o continuar y buscar la url real
+    e.respondWith(
+      caches.match(e.request)
+        .then(res => {
+          if (res) {
+            //recuperar del cache
+            return res
+          }
+          //recuperar de la petición a la url
+          return fetch(e.request)
+        })
     )
-})
-
-
-
+  })
