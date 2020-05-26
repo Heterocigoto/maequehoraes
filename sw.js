@@ -40,6 +40,7 @@ self.addEventListener('install', e => {
         // Le indica al SW activar el cache actual
         .then(() => self.clients.claim())
     )
+    .catch(err => console.log("Algo fallo en el activate", err));
   })
   
   //cuando el navegador recupera una url
@@ -55,5 +56,6 @@ self.addEventListener('install', e => {
           //recuperar de la petición a la url
           return fetch(e.request)
         })
+        .catch(err => console.log("Algo fallo en el activate", err))
     )
   })
