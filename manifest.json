@@ -6,8 +6,8 @@
     "theme_color": "rgb(95, 158, 160)",
     "orientation": "portrait",
     "display": "standalone",
-    "start_url": "./?utm_source=web_app_manifest",
-    "scope": "./",
+    "start_url": "?utm_source=web_app_manifest",
+    "scope": "/",
     "lang": "es-CR",
     "icons": [
      
